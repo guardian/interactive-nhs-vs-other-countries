@@ -1,16 +1,47 @@
-import iframeMessenger from 'guardian/iframe-messenger'
-import reqwest from 'reqwest'
-import embedHTML from './text/embed.html!text'
+import mainHTML from './text/main.html!text'
+import { loadData } from './lib/loadData';
+import SmallMultiples from './components/SmallMultiples';
 
-window.init = function init(el, config) {
-    iframeMessenger.enableAutoResize();
+export function init(el, context, config, mediator) {
+    el.innerHTML = mainHTML.replace(/%assetPath%/g, config.assetPath);
 
-    el.innerHTML = embedHTML;
+    loadData((data)=>{
+        console.log(data)
 
-    reqwest({
-        url: 'http://ip.jsontest.com/',
-        type: 'json',
-        crossOrigin: true,
-        success: (resp) => el.querySelector('.test-msg').innerHTML = `Your IP address is ${resp.ip}`
+        new SmallMultiples(data,{
+            container:"#NHSComparison",
+            country:"UK"
+        })
+    });
+
+    
+}
+
+if (!Array.prototype.find) {
+  Array.prototype.find = function(predicate) {
+    if (this === null) {
+      throw new TypeError('Array.prototype.find called on null or undefined');
+    }
+    if (typeof predicate !== 'function') {
+      throw new TypeError('predicate must be a function');
+    }
+    var list = Object(this);
+    var length = list.length >>> 0;
+    var thisArg = arguments[1];
+    var value;
+
+    for (var i = 0; i < length; i++) {
+      value = list[i];
+      if (predicate.call(thisArg, value, i, list)) {
+        return value;
+      }
+    }
+    return undefined;
+  };
+}
+
+d3.selection.prototype.moveToFront = function() {
+    return this.each(function(){
+        this.parentNode.appendChild(this);
     });
 };

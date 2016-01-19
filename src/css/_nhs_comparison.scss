@@ -1,0 +1,25 @@
+#NHSComparison {
+	width:100%;
+	min-height:100px;
+
+	.embed & {
+		padding-bottom:10px;
+		border-bottom:1px solid #dcdcdc;
+		margin-bottom:20px;
+	}
+
+	.smallmultiples {
+		width:100%;
+		overflow: hidden;
+		.chart {
+			float:left;
+			//border:1px solid #ddd;
+
+			h4 {
+				min-height: 30px;
+				font-size:14px;
+				text-align:center;
+			}
+		}
+	}
+}

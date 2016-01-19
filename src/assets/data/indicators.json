@@ -1,0 +1,23 @@
+{
+	"Current expenditure, % GDP":{
+		"title":"Current expenditure, % GDP"
+	},
+	"Doctors per 1,000 pop.":{
+		"title":"Doctors per 1,000 pop."
+	},
+	"C-sections":{
+		"title":"C-sections"
+	},
+	"Antibiotics":{
+		"title":"Antibiotics"
+	},
+	"Nurses per 1,000 pop":{
+		"title":"Nurses per 1,000 pop"
+	},
+	"Hospital discharges":{
+		"title":"Hospital discharges"
+	},
+	"ALOS, all causes":{
+		"title":"Average length of stay"
+	}
+}

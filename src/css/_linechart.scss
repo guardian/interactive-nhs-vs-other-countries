@@ -1,0 +1,159 @@
+.linechart {
+	svg {
+		width:100%;
+		height:150px;
+		
+		.countries {
+			.country {
+				path {
+					fill:none;
+					stroke:#bdbdbd;
+					stroke-width:1;
+				}
+				path.area {
+					fill:#69d1ca;
+					fill-opacity:0.25;
+					stroke:none;
+				}
+				circle {
+					stroke:none;
+					fill:#333;
+					&.last {
+						fill:none;
+					}
+				}
+				text {
+					@include fs-textSans(1);
+					visibility: hidden;
+				}
+				&.selected {
+					path {
+						stroke:#69d1ca;
+						stroke-width:2;	
+					}
+					circle.last {
+						fill:#69d1ca;
+					}
+					text {
+						fill:#69d1ca;
+						visibility: visible;
+						font-weight:bold;
+					}
+				}
+				&.lighter {
+					path {
+						stroke-width:1;
+						stroke:#bdbdbd;
+					}
+					circle {
+						fill:#bdbdbd;
+						&.last {
+							fill:none;
+						}
+					}
+				}
+				&.highlight {
+					text {
+						visibility: visible;	
+					}
+					path {
+						stroke:#000;
+						stroke-width:2;
+						&.area {
+							stroke:none;
+						}
+					}
+					circle {
+						fill:#000;
+						stroke:#000;
+						stroke-width:1;
+						&.last {
+							fill:#000;
+						}
+					}
+				}
+				&.selected-country {
+					path {
+						stroke:none;
+					}
+
+				}
+			}
+			
+		}
+
+		.axes {
+			.axis {
+				path,line {
+					fill:none;
+					shape-rendering: crispEdges;
+					stroke:#bbb;
+				}
+				path {
+					//display: none;
+				}
+				&.x,
+				&.y {
+					path {
+						display: none;
+					}
+				}
+
+				.tick {
+					line {
+						//display: none;
+					}
+					text {
+						//display: none;
+					}
+				}
+
+				&.y {
+					.tick {
+						line {
+							stroke:#eee;
+						}
+					}
+				}
+				&.x {
+					line {
+						stroke:#bbb;
+					}
+					line.zero {
+						stroke:#bbb;
+					}
+				}
+				.tick.main {
+					text {
+						display: block;
+					}
+				}
+				text {
+					fill: #bbb;
+					@include fs-textSans(1);
+					font-size: 11px;
+					text-anchor:middle;
+				}
+				.tick.last-tick {
+					text {
+						text-anchor:start !important;
+					}
+				}
+				
+			}
+		}
+
+		.voronoi {
+			path {
+				fill-opacity:0;
+				stroke:none;
+				stroke-width:0;
+			}
+			circle {
+				fill:#000;
+				stroke:none;
+			}
+		}
+
+	}
+}
