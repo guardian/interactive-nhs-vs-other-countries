@@ -1,6 +1,7 @@
 #NHSComparison {
-	width:100%;
+	width:620px;
 	min-height:100px;
+	color:#333;
 
 	.embed & {
 		padding-bottom:10px;
@@ -16,9 +17,14 @@
 			//border:1px solid #ddd;
 
 			h4 {
-				min-height: 30px;
+				min-height: 45px;
 				font-size:14px;
-				text-align:center;
+				text-align:left;
+				padding-left:5px;
+
+				b {
+					color:#0bada5;
+				}
 			}
 		}
 	}

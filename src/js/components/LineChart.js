@@ -1,3 +1,5 @@
+import { appendShadow } from '../lib/CSSUtils';
+
 export default function LineChart(data,options) {
 
 	console.log(data,options)
@@ -14,10 +16,16 @@ export default function LineChart(data,options) {
 		HEIGHT= box.height;
 	
 	let margins=options.margins || {
-		top:10,
+		top:14,
 		bottom:30,
-		left:55,
-		right:55
+		left:5,
+		right:15
+	};
+	let padding=options.padding || {
+		top:0,
+		bottom:0,
+		left:20,
+		right:0
 	};
 
 	let extents={};
@@ -37,30 +45,44 @@ export default function LineChart(data,options) {
 
 	function buildVisual() {
 
-		xscale=d3.scale.linear().domain(extents.years).range([0,WIDTH-(margins.left+margins.right)]);
+		svg.on("mouseleave",d=>{
+			if(options.mouseLeaveCallback) {
+				options.mouseLeaveCallback();
+			}
+		})
+
+		xscale=d3.scale.linear().domain(extents.years).range([0,WIDTH-(margins.left+margins.right+padding.left+padding.right)]);
 		yscale=d3.scale.linear().domain([(extents.values[0]<0?extents.values[0]:0),extents.values[1]]).range([HEIGHT-(margins.top+margins.bottom),0]).nice();
+
+		//alert(xscale.range()[1])
 
 		let line = d3.svg.line()
 				    .x(function(d) { return xscale(d.x); })
 				    .y(function(d) { return yscale(d.y); })
 				    .defined(function(d) { return d.y; })
-				    .interpolate("cardinal")
+
+				    //.interpolate("cardinal")
+		
 		let area = d3.svg.area()
 				    .x(function(d) { return xscale(d.x); })
 				    .y0(yscale.range()[0])
 				    .y1(function(d) { return yscale(d.y); })
-				    .interpolate("cardinal")
+				    //.interpolate("cardinal")
 				    //.defined(function(d) { return d.y; })
+		if(!options.indicator.interpolate || options.indicator.interpolate!=="none") {
+			line.interpolate("cardinal");
+			area.interpolate("cardinal");
+		}
 		
 		let axes=svg.append("g")
 					.attr("class","axes")
-					.attr("transform","translate("+margins.left+","+margins.top+")")
+					.attr("transform","translate("+(margins.left+padding.left)+","+margins.top+")")
 
 		let countries=svg.append("g")
 						.attr("class","countries")
-						.attr("transform","translate("+margins.left+","+margins.top+")")
+						.attr("transform","translate("+(margins.left+padding.left)+","+margins.top+")")
 		
-		let selected_country=countries.selectAll("g.selected-country")
+		/*let selected_country=countries.selectAll("g.selected-country")
 						.data(data.filter(d => (d.data && (d.country === options.country))).map(d => {
 							
 							d.paths=dataToMultiplePaths(d.data);	
@@ -90,12 +112,14 @@ export default function LineChart(data,options) {
 								y:v.value
 							}
 						}))
-					})
+					})*/
 
 		country=countries
 						.selectAll("g.country")
-						.data(data.filter(d => d.data).map(d => {
+						.data(data.filter(d => d.data && (d.data.filter(v=>v.value!==null).length>0)).map(d => {
 							d.max_year=d3.max(d.data.filter(v=>v.value),v=>v.year);
+							console.log("!",d.max_year,d.country,d.data)
+							d.last_value=d.data.filter(v=>(v.year===d.max_year))[0].value;
 							d.paths=dataToMultiplePaths(d.data);	
 							//console.log(d.country,d.paths)
 							
@@ -107,15 +131,11 @@ export default function LineChart(data,options) {
 							.classed("selected",(d) => { return d.country === options.country})
 							.classed("lighter",d => (typeof options.country !== 'undefined' && d.country !== options.country))
 							.attr("rel",(d) => d.country)
-							.on("mouseenter",function(d){
-								
-								country.filter(c=>(c.country===options.country)).moveToFront();
-								d3.select(this).moveToFront();
 
-							})
-
+		let top_country=getTopCountry();
 
 		country
+			.classed("top",d => d.country === top_country)
 			.selectAll("path.fg")
 			.data(d => d.paths.filter(p => p.length>1))
 			.enter()
@@ -144,7 +164,6 @@ export default function LineChart(data,options) {
 		country
 			.selectAll("circle.last")
 			.data(d => {
-				//console.log("----->",d)
 				return d.data.filter(v=>v.year===d.max_year)
 			})
 			.enter()
@@ -155,10 +174,18 @@ export default function LineChart(data,options) {
 					.attr("cy",d => yscale(d.value))
 					.attr("r",3);
 
-		country.append("text")
-					.attr("x",xscale.range()[1])
-					.attr("dx",5)
-					.attr("dy","0.25em")
+		let text=country.append("text")
+					.attr("x",d => {
+						let values=d.data.filter(v => (typeof v.value ==='number')),
+							last=values[values.length-1];
+						if(!last) {
+							return "";
+						}
+						return xscale(last.year)
+					})
+					//.attr("dx",5)
+					.attr("dy",-6)
+					.style("text-shadow","none")
 					.attr("y",d => {
 						let values=d.data.filter(v => (typeof v.value ==='number')),
 							last=values[values.length-1];
@@ -175,6 +202,13 @@ export default function LineChart(data,options) {
 					})
 					.text(d => d.country)
 
+		text.each(function(d){
+						let strokeSize=1.5,
+							strokeColor="#fff";
+						for (var angle=0; angle<2*Math.PI; angle+=1/strokeSize) {
+						    appendShadow(this, Math.cos(angle) * strokeSize, Math.sin(angle) * strokeSize, strokeColor);	
+						}
+					})
 		
 
 		let xAxis = d3.svg.axis()
@@ -188,7 +222,11 @@ export default function LineChart(data,options) {
 						return xscale.ticks(3).concat([xscale.domain()[1]])
 					})
 				    .tickFormat((d)=>{
-				    	return d3.format("0d")(d)
+				    	let year=d3.format("0d")(d);
+				    	if(year%1000===0) {
+				    		return year;
+				    	}
+				    	return "'"+year.substr(2)
 				    	//return !(d%60)?d/60:self.extents.minute.minute
 				    })
 				    
@@ -200,49 +238,68 @@ export default function LineChart(data,options) {
 
 		xaxis.append("line")
 				.attr("class","zero")
-				.attr("x1",0)
+				.attr("x1",-padding.left)
 				.attr("y1",-yscale.range()[0]+yscale(0))
 				.attr("x2",xscale.range()[1])
 				.attr("y2",-yscale.range()[0]+yscale(0))
 
-		xaxis.selectAll(".tick")
-				.classed("last-tick",(d)=>(d===xscale.domain()[1]))
+		//xaxis.selectAll(".tick")
+				//.classed("last-tick",(d)=>(d===xscale.domain()[1]))
 
 		let yAxis = d3.svg.axis()
 				    .scale(yscale)
 				    .orient("left")
-				    .ticks(5)
+				    .ticks(3)				    
 					/*.tickValues(d => {
 						return xscale.ticks().filter(y => {
 							return y%10===0
 						}).concat([xscale.domain()[1]])
-					})
+					})*/
 				    .tickFormat((d)=>{
-				    	return d3.format("0d")(d)
+				    	return d3.format(",.0d")(d) + (options.indicator.unit||"");
+				    	//return d3.format("0d")(d)
 				    	//return !(d%60)?d/60:self.extents.minute.minute
-				    })*/
+				    })
 				    
 
 		let yaxis=axes.append("g")
 			      .attr("class", "y axis")
-			      .attr("transform", "translate("+0+"," + 0 + ")")
+			      .attr("transform", "translate("+(-padding.left)+"," + 0 + ")")
 			      .call(yAxis);
 
 		yaxis.selectAll(".tick")
-				.filter(d => d!==0)
+				.filter((d,i) => d!==0)
 				.select("line")
-					.attr("x2",d => xscale.range()[1])
+					.classed("visible",true)
+					.attr("x2",(d,i) => {
+						console.log(i,d)
+						return xscale.range()[1]+padding.left
+					})
 
+		yaxis.selectAll(".tick")
+				.select("text")
+					.attr("x",0)
+					.attr("y","-7")
 		
 	}
 	let highlightCountry = this.highlightCountry = (c) => {
 		//console.log(c)
+		
+		if(!c) {
+			country
+				.classed("highlight",false)			
+			return;
+		}	
+
+		country
+			.filter(d => d.country === options.country)
+			.moveToFront();		
+
 		country
 			.classed("highlight",false)
 			.filter(d => d.country === c)
 			.classed("highlight",true)
 			.moveToFront();
-
 	}
 
 	function buildVoronoi() {
@@ -311,7 +368,10 @@ export default function LineChart(data,options) {
 
 		//console.log("EXTENTS",this.extents)
 	}
-
+	function getTopCountry() {
+		//console.log("--------",d3.max(data,c => c.last_value),data)
+		return data.filter(d => d.last_value === d3.max(data,c => c.last_value))[0].country
+	}
 	function dataToMultiplePaths(values) {
 		let paths=[
 			[]

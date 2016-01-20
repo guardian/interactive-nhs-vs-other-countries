@@ -3,3 +3,9 @@
 @function colour($name) {
     @return map-get($pasteup-palette, $name);
 }
+
+$nhs:#83d5cf;
+$nhs1:#06847b;
+$nhs2:#00427a;
+$nhs3:#fdba2c;
+$lightgray:#dae3e7;

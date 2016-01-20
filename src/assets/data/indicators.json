@@ -1,23 +1,31 @@
 {
 	"Current expenditure, % GDP":{
-		"title":"Current expenditure, % GDP"
+		"title":"Current expenditure on health (% of gross domestic product)"
+	},
+	"Current exp, per capita, AAGR":{
+		"title":"Annual growth rate of current expenditure on health per capita (in real terms)",
+		"interpolate":"none",
+		"unit":"%"
 	},
 	"Doctors per 1,000 pop.":{
-		"title":"Doctors per 1,000 pop."
+		"title":"Physicians, density per 1,000 population (head counts)"
 	},
 	"C-sections":{
-		"title":"C-sections"
+		"title":"Surgical procedures by ICD-9-CM, <b>caesarean section</b> (procedures per 1,000 live births)"
 	},
 	"Antibiotics":{
-		"title":"Antibiotics"
+		"title":"Pharmaceutical consumption, <b>antibiotics</b> (defined daily dosage per 1,000 inhabitants per day)"
 	},
 	"Nurses per 1,000 pop":{
-		"title":"Nurses per 1,000 pop"
+		"title":"Nurses, density per 1,000 population (head counts)"
 	},
 	"Hospital discharges":{
-		"title":"Hospital discharges"
+		"title":"Discharge rates by diagnostic categories, all causes (per 100,000 population)"
 	},
 	"ALOS, all causes":{
-		"title":"Average length of stay"
+		"title":"Average length of stay, <b>all causes</b> (number of days)"
+	},
+	"Hospital discharge": {
+		"title":"Discharge rates by diagnostic categories, all causes (per 100,000 population)"
 	}
 }

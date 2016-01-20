@@ -1,4 +1,5 @@
 import mainHTML from './text/main.html!text'
+import indicators from '../assets/data/indicators.json!json'
 import { loadData } from './lib/loadData';
 import SmallMultiples from './components/SmallMultiples';
 
@@ -10,7 +11,8 @@ export function init(el, context, config, mediator) {
 
         new SmallMultiples(data,{
             container:"#NHSComparison",
-            country:"UK"
+            country:"UK",
+            indicators:indicators
         })
     });
 

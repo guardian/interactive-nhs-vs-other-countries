@@ -28,13 +28,13 @@ function updateData(json) {
     let countries=[ "Australia",
                     "China",
                     "France",
-                    "Germany",
+                    //"Germany",
                     "Ireland",
-                    "Israel",
+                    //"Israel",
                     "Italy",
-                    "Japan",
+                    //"Japan",
                     "Russia",
-                    "Spain",
+                    //"Spain",
                     "Sweden",
                     "United Kingdom",
                     "United States" ];
@@ -46,6 +46,7 @@ function updateData(json) {
 
     let filter=["Current expenditure, % GDP","Doctors per 1,000 pop.","C-sections","Antibiotics","Nurses per 1,000 pop","Hospital discharges","ALOS, all causes","Current exp, per capita, AAGR"]
     //filter=["Current expenditure, % GDP"]
+    //filter=["Current exp, per capita, AAGR"]
     for(let sheet in json.sheets) {
         //console.log(json.sheets[sheet])
         if(filter.indexOf(sheet)>-1) {

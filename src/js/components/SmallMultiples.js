@@ -13,16 +13,25 @@ export default function SmallMultiples(data,options) {
 				.attr("class","chart");
 
 	chart.append("h4")
-			.text(d => d.title)
+			.html(d => {
+				//console.log("YYYY",d,options.indicators)
+				return options.indicators[d.title]?options.indicators[d.title].title:d.title;
+			})
+	//return;
 	let linecharts=[];
 	chart.each(function(d){
 		linecharts.push(
 			new LineChart(d.data,{
-				width:0.25,//1/data.length,
+				width:1/3,//1/data.length,
 				container:this,
 				country:options.country,
+				indicator:options.indicators[d.title],
+				highlight_top:true,
 				mouseEnterCallback: (country) => {
 					linecharts.forEach(l => l.highlightCountry(country))
+				},
+				mouseLeaveCallback: (country) => {
+					linecharts.forEach(l => l.highlightCountry())
 				}
 			})
 		);

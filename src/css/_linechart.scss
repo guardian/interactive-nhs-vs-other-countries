@@ -25,31 +25,48 @@
 				text {
 					@include fs-textSans(1);
 					visibility: hidden;
+					font-weight:bold;
+					text-anchor:end;
 				}
 				&.selected {
 					path {
-						stroke:#69d1ca;
+						stroke:$nhs1;
 						stroke-width:2;	
+
 					}
 					circle.last {
-						fill:#69d1ca;
+						fill:$nhs1;
 					}
 					text {
-						fill:#69d1ca;
+						fill:#000;
 						visibility: visible;
-						font-weight:bold;
 					}
 				}
+				
 				&.lighter {
 					path {
 						stroke-width:1;
-						stroke:#bdbdbd;
+						stroke:$lightgray;
 					}
 					circle {
-						fill:#bdbdbd;
+						fill:$lightgray;
 						&.last {
 							fill:none;
 						}
+					}
+				}
+				&.top {
+					path {
+						stroke:$nhs3;
+						stroke-width:2;	
+
+					}
+					circle.last {
+						fill:$nhs3;
+					}
+					text {
+						fill:#000;
+						visibility: visible;
 					}
 				}
 				&.highlight {
@@ -57,18 +74,18 @@
 						visibility: visible;	
 					}
 					path {
-						stroke:#000;
+						stroke:$nhs2;
 						stroke-width:2;
 						&.area {
 							stroke:none;
 						}
 					}
 					circle {
-						fill:#000;
-						stroke:#000;
+						fill:$nhs2;
+						stroke:$nhs2;
 						stroke-width:1;
 						&.last {
-							fill:#000;
+							fill:$nhs2;
 						}
 					}
 				}
@@ -111,7 +128,15 @@
 				&.y {
 					.tick {
 						line {
-							stroke:#eee;
+							stroke:#767676;
+							stroke-dasharray: 1,1;
+							visibility: hidden;
+							&.visible {
+								visibility: visible;
+							}
+						}
+						text {
+							text-anchor:start !important;
 						}
 					}
 				}
@@ -122,6 +147,16 @@
 					line.zero {
 						stroke:#bbb;
 					}
+					.tick:first-child {
+						text {
+							text-anchor:start !important;
+						}
+					}
+					.tick:nth-last-child(3) {
+						text {
+							//text-anchor:end !important;
+						}
+					}
 				}
 				.tick.main {
 					text {
@@ -129,7 +164,7 @@
 					}
 				}
 				text {
-					fill: #bbb;
+					fill: #767676;
 					@include fs-textSans(1);
 					font-size: 11px;
 					text-anchor:middle;
