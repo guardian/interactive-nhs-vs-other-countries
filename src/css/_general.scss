@@ -38,4 +38,11 @@ figure.interactive {
             text-decoration: underline;
         }
     }
+
+    .notes {
+        //padding-top:40px;
+        padding-bottom:40px;
+        @include fs-textSans(1);
+        color:#333;
+    }
 }

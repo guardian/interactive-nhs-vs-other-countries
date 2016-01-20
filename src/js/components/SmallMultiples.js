@@ -14,15 +14,18 @@ export default function SmallMultiples(data,options) {
 
 	chart.append("h4")
 			.html(d => {
-				//console.log("YYYY",d,options.indicators)
 				return options.indicators[d.title]?options.indicators[d.title].title:d.title;
 			})
-	//return;
+	chart.append("p")
+			.html(d => {
+				return options.indicators[d.title]?options.indicators[d.title].subtitle:d.title;
+			})
+	
 	let linecharts=[];
 	chart.each(function(d){
 		linecharts.push(
 			new LineChart(d.data,{
-				width:1/3,//1/data.length,
+				//width:1/3,//1/data.length,
 				container:this,
 				country:options.country,
 				indicator:options.indicators[d.title],

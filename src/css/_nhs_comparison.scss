@@ -1,5 +1,6 @@
 #NHSComparison {
-	width:620px;
+	max-width:620px;
+	width:100%;
 	min-height:100px;
 	color:#333;
 
@@ -15,16 +16,37 @@
 		.chart {
 			float:left;
 			//border:1px solid #ddd;
-
+			width:calc(50% - 10px);
+			margin:5px;
+			margin-bottom:30px;
+			@include mq(tablet) {
+				width:calc(33% - 10px);
+				
+			}
 			h4 {
-				min-height: 45px;
+				//min-height: 85px;
 				font-size:14px;
+				line-height: 16px;
+				margin-bottom:5px;
+				@include mq(tablet) {
+					//min-height: 75px;
+					font-size:14px;
+					line-height: 16px;
+				}
 				text-align:left;
 				padding-left:5px;
 
 				b {
 					color:#0bada5;
 				}
+			}
+			p {
+				@include fs-textSans(1);
+				padding-left:5px;
+				margin-top:0;
+				display: block;
+				min-height:31px;
+				color:#767676;
 			}
 		}
 	}

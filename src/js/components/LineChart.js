@@ -5,7 +5,7 @@ export default function LineChart(data,options) {
 	console.log(data,options)
 
 	let container=d3.select(options.container)
-						.style("width",options.width*100+"%")
+						//.style("width",options.width*100+"%")
 	let linechart=container.append("div")
 					.attr("class","linechart");
 

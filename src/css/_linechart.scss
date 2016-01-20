@@ -30,12 +30,12 @@
 				}
 				&.selected {
 					path {
-						stroke:$nhs1;
+						stroke:$nhs;
 						stroke-width:2;	
 
 					}
 					circle.last {
-						fill:$nhs1;
+						fill:$nhs;
 					}
 					text {
 						fill:#000;

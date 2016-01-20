@@ -32,9 +32,9 @@ function updateData(json) {
                     "Ireland",
                     //"Israel",
                     "Italy",
-                    //"Japan",
+                    "Japan",
                     "Russia",
-                    //"Spain",
+                    "Spain",
                     "Sweden",
                     "United Kingdom",
                     "United States" ];
