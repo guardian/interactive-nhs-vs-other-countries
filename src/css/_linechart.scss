@@ -27,6 +27,7 @@
 					visibility: hidden;
 					font-weight:bold;
 					text-anchor:end;
+					//-webkit-text-stroke: 2px #fff;
 				}
 				&.selected {
 					path {
@@ -74,18 +75,18 @@
 						visibility: visible;	
 					}
 					path {
-						stroke:$nhs2;
+						stroke:$nhs3;
 						stroke-width:2;
 						&.area {
 							stroke:none;
 						}
 					}
 					circle {
-						fill:$nhs2;
-						stroke:$nhs2;
+						fill:$nhs3;
+						stroke:$nhs3;
 						stroke-width:1;
 						&.last {
-							fill:$nhs2;
+							fill:$nhs3;
 						}
 					}
 				}

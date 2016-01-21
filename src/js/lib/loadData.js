@@ -8,6 +8,8 @@ export function loadData(callback) {
 
     let dataSrc = "https://interactive.guim.co.uk/docsdata-test/" + dataKey + ".json";
 
+    //dataSrc = "http://localhost:8000/assets/data/data.json";
+
     d3.json(dataSrc, (json) => {
     
         //console.log(json)
@@ -28,9 +30,9 @@ function updateData(json) {
     let countries=[ "Australia",
                     "China",
                     "France",
-                    //"Germany",
+                    "Germany",
                     "Ireland",
-                    //"Israel",
+                    "Israel",
                     "Italy",
                     "Japan",
                     "Russia",

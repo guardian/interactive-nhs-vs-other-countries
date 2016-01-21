@@ -2,12 +2,13 @@ import LineChart from './LineChart';
 
 export default function SmallMultiples(data,options) {
 
+	//console.log(options.selected_indicators)
 	
 	let chart=d3.select(options.container)
 			.append("div")
 			.attr("class","smallmultiples")
 			.selectAll("div.chart")
-				.data(data)
+				.data(data.filter(d => options.selected_indicators.indexOf(d.title)>-1 ).sort((a,b)=>{return options.selected_indicators.indexOf(a.title) - options.selected_indicators.indexOf(b.title)}))
 				.enter()
 				.append("div")
 				.attr("class","chart");
@@ -29,7 +30,7 @@ export default function SmallMultiples(data,options) {
 				container:this,
 				country:options.country,
 				indicator:options.indicators[d.title],
-				highlight_top:true,
+				highlight_top:false,
 				mouseEnterCallback: (country) => {
 					linecharts.forEach(l => l.highlightCountry(country))
 				},

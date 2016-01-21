@@ -21,15 +21,14 @@
 			margin-bottom:30px;
 			@include mq(tablet) {
 				width:calc(33% - 10px);
-				
 			}
 			h4 {
-				//min-height: 85px;
+				min-height: 35px;
 				font-size:14px;
 				line-height: 16px;
 				margin-bottom:5px;
 				@include mq(tablet) {
-					//min-height: 75px;
+					min-height: 35px;
 					font-size:14px;
 					line-height: 16px;
 				}
@@ -45,7 +44,7 @@
 				padding-left:5px;
 				margin-top:0;
 				display: block;
-				min-height:31px;
+				min-height:35px;
 				color:#767676;
 			}
 		}

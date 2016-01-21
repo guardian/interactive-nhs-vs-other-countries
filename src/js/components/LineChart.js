@@ -2,7 +2,7 @@ import { appendShadow } from '../lib/CSSUtils';
 
 export default function LineChart(data,options) {
 
-	console.log(data,options)
+	//console.log(data,options)
 
 	let container=d3.select(options.container)
 						//.style("width",options.width*100+"%")
@@ -30,7 +30,7 @@ export default function LineChart(data,options) {
 
 	let extents={};
 	updateExtents();
-	console.log(extents)
+	//console.log(extents)
 
 	let xscale,yscale,country;
 
@@ -118,7 +118,7 @@ export default function LineChart(data,options) {
 						.selectAll("g.country")
 						.data(data.filter(d => d.data && (d.data.filter(v=>v.value!==null).length>0)).map(d => {
 							d.max_year=d3.max(d.data.filter(v=>v.value),v=>v.year);
-							console.log("!",d.max_year,d.country,d.data)
+							//console.log("!",d.max_year,d.country,d.data)
 							d.last_value=d.data.filter(v=>(v.year===d.max_year))[0].value;
 							d.paths=dataToMultiplePaths(d.data);	
 							//console.log(d.country,d.paths)
@@ -132,10 +132,12 @@ export default function LineChart(data,options) {
 							.classed("lighter",d => (typeof options.country !== 'undefined' && d.country !== options.country))
 							.attr("rel",(d) => d.country)
 
+		country.filter((d) => { return d.country === options.country}).moveToFront();
+		
 		let top_country=getTopCountry();
 
 		country
-			.classed("top",d => d.country === top_country)
+			.classed("top",d => (d.country === top_country && options.highlight_top))
 			.selectAll("path.fg")
 			.data(d => d.paths.filter(p => p.length>1))
 			.enter()
@@ -203,10 +205,10 @@ export default function LineChart(data,options) {
 					.text(d => d.country)
 
 		text.each(function(d){
-						let strokeSize=1.5,
-							strokeColor="#fff";
+						let strokeSize=2,
+							strokeColor="#ffffff";
 						for (var angle=0; angle<2*Math.PI; angle+=1/strokeSize) {
-						    appendShadow(this, Math.cos(angle) * strokeSize, Math.sin(angle) * strokeSize, strokeColor);	
+						    appendShadow(this, Math.cos(angle) * strokeSize, Math.sin(angle) * strokeSize, strokeColor);
 						}
 					})
 		
@@ -272,7 +274,7 @@ export default function LineChart(data,options) {
 				.select("line")
 					.classed("visible",true)
 					.attr("x2",(d,i) => {
-						console.log(i,d)
+						//console.log(i,d)
 						return xscale.range()[1]+padding.left
 					})
 
@@ -305,7 +307,7 @@ export default function LineChart(data,options) {
 	function buildVoronoi() {
 		
 
-		console.log("DATA",data)
+		//console.log("DATA",data)
 		data.forEach(d => {
 			d.data.forEach(v => {
 				//console.log(v,d.country)
@@ -313,7 +315,7 @@ export default function LineChart(data,options) {
 				samples.push(v);//push([xscale(v.year),yscale(v.value)])
 			})
 		})
-		console.log(samples)
+		//console.log(samples)
 
 		voronoi = d3.geom.voronoi()
 					.x(function(d) { return xscale(d.year); })
@@ -348,6 +350,9 @@ export default function LineChart(data,options) {
 				//highlightCountry(d.point.country)
 				options.mouseEnterCallback(d.point.country);
 			})
+			.on("touchstart",(d) => {
+				options.mouseEnterCallback(d.point.country);	
+			})
 		
 			
 		
@@ -360,7 +365,7 @@ export default function LineChart(data,options) {
 	function updateExtents() {	
 		let years=data.map(d => d3.extent(d.data.filter(v=>v.year>0),v=>v.year)),
 			values=data.map(d => d3.extent(d.data.filter(v=>(typeof v.value === 'number')),v=>v.value));
-		console.log("YEARS",years,values)
+		//console.log("YEARS",years,values)
 		extents={
 			years:[d3.min(years,v=>v[0]),d3.max(years,v=>v[1])],
 			values:[d3.min(values,v=>v[0]),d3.max(values,v=>v[1])]

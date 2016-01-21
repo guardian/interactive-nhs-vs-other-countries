@@ -104,7 +104,7 @@ module.exports = function(grunt) {
                     },
                     { // ASSETS
                         expand: true, cwd: 'build/',
-                        src: ['main.js', 'main.css', 'main.js.map', 'main.css.map', 'assets/**/*'],
+                        src: ['main.js', 'main.css', 'main.js.map', 'embed.js', 'embed.css', 'main.css.map', 'assets/**/*'],
                         dest: 'deploy/<%= visuals.timestamp %>/<%= visuals.timestamp %>'
                     }
                 ]
@@ -225,8 +225,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('embed', ['shell:embed', 'template:embed', 'sass:embed']);
     grunt.registerTask('interactive', ['shell:interactive', 'template:bootjs', 'sass:interactive']);
-    //grunt.registerTask('all', ['interactive', 'embed', 'copy:assets'])
-    grunt.registerTask('all', ['interactive', 'copy:assets'])
+    grunt.registerTask('all', ['interactive', 'embed', 'copy:assets'])
+    //grunt.registerTask('all', ['interactive', 'copy:assets'])
     grunt.registerTask('default', ['clean', 'copy:harness', 'all', 'connect', 'watch']);
     grunt.registerTask('build', ['clean', 'all']);
     grunt.registerTask('deploy', ['loadDeployConfig', 'prompt:visuals', 'build', 'copy:deploy', 'aws_s3', 'boot_url']);

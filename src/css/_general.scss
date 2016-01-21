@@ -14,9 +14,9 @@ figure.interactive {
         box-sizing: border-box;
     }
 
-    padding: 10px;
+    padding: 0px;
     @include mq(mobileLandscape) {
-        padding: 20px;
+        //padding: 20px;
     }
 
     @each $bp in (tablet, desktop, leftCol, wide) {
@@ -40,7 +40,7 @@ figure.interactive {
     }
 
     .notes {
-        //padding-top:40px;
+        padding-left:10px;
         padding-bottom:40px;
         @include fs-textSans(1);
         color:#333;

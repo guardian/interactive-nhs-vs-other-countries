@@ -6,10 +6,16 @@
     <link rel="stylesheet" type="text/css" href="<%= assetPath %>/embed.css" />
 </head>
 <body>
-    <div class="interactive-embed js-interactive"></div>
+    <div class="interactive-container">
+    	<div id="NHSComparison">
+	        
+	    </div>
+	    <div class="notes">Source: OECD Health Statistics 2015</div>
+    </div>
     <script src="<%= assetPath %>/embed.js"></script>
     <script>
-        init(document.querySelector('.js-interactive'), {'assetPath': '<%= assetPath %>'});
+        //init(document.querySelector('.js-interactive'), {'assetPath': '<%= assetPath %>'});
+        init(document.querySelector('.interactive-container'), {}, {'assetPath': '<%= assetPath %>'});
     </script>
 </body>
 </html>

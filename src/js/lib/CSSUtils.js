@@ -5,18 +5,18 @@ export function appendShadow(item, x, y, col) {
 
 	var textShadow = '';
 
-	if (item.style['textShadow'] !== 'none') {
+	if (item.style['text-shadow'] !== 'none') {
 		//console.log("--->",item.style['textShadow'],item.style)
-		textShadow = item.style['textShadow'] + ', ';
+		textShadow = item.style['text-shadow'] + ', ';
 	}
 	
-	textShadow = textShadow + x + 'px ' + y + 'px ' + col;
+	textShadow = textShadow + x + 'px ' + y + 'px ' + '1px ' +col;
 
 	// apply new text-shadow property
 	//item.css('text-shadow', textShadow);
 
 	//console.log(textShadow)
-	item.style['textShadow']=textShadow;
+	item.style['text-shadow']=textShadow;
 
 	//return textShadow;
 }

@@ -8,11 +8,12 @@ export function init(el, context, config, mediator) {
 
     loadData((data)=>{
         console.log(data)
-
+        let selected_indicators=d3.range(d3.keys(indicators).length);
         new SmallMultiples(data,{
             container:"#NHSComparison",
             country:"UK",
-            indicators:indicators
+            indicators:indicators,
+            selected_indicators:d3.keys(indicators).filter((d,i)=> selected_indicators.indexOf(i)>-1)
         })
     });
 
