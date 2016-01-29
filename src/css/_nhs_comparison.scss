@@ -16,19 +16,19 @@
 		.chart {
 			float:left;
 			//border:1px solid #ddd;
-			width:calc(50% - 10px);
+			width:calc(100% - 10px);
 			margin:5px;
-			margin-bottom:30px;
+			margin-bottom:10px;
 			@include mq(tablet) {
 				width:calc(33% - 10px);
 			}
 			h4 {
-				min-height: 35px;
+				//min-height: 35px;
 				font-size:14px;
 				line-height: 16px;
 				margin-bottom:5px;
 				@include mq(tablet) {
-					min-height: 35px;
+					//min-height: 35px;
 					font-size:14px;
 					line-height: 16px;
 				}
@@ -44,7 +44,7 @@
 				padding-left:5px;
 				margin-top:0;
 				display: block;
-				min-height:35px;
+				//min-height:35px;
 				color:#767676;
 			}
 		}

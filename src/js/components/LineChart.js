@@ -16,7 +16,7 @@ export default function LineChart(data,options) {
 		HEIGHT= box.height;
 	
 	let margins=options.margins || {
-		top:14,
+		top:16,
 		bottom:30,
 		left:5,
 		right:15
@@ -33,6 +33,8 @@ export default function LineChart(data,options) {
 	//console.log(extents)
 
 	let xscale,yscale,country;
+
+	let step=options.indicator.step || 1;
 
 	buildVisual();
 
@@ -52,7 +54,7 @@ export default function LineChart(data,options) {
 		})
 
 		xscale=d3.scale.linear().domain(extents.years).range([0,WIDTH-(margins.left+margins.right+padding.left+padding.right)]);
-		yscale=d3.scale.linear().domain([(extents.values[0]<0?extents.values[0]:0),extents.values[1]]).range([HEIGHT-(margins.top+margins.bottom),0]).nice();
+		yscale=d3.scale.linear().domain(options.indicator.extents || [(extents.values[0]<0?extents.values[0]:0),extents.values[1]]).range([HEIGHT-(margins.top+margins.bottom),0]).nice();
 
 		//alert(xscale.range()[1])
 
@@ -251,12 +253,36 @@ export default function LineChart(data,options) {
 		let yAxis = d3.svg.axis()
 				    .scale(yscale)
 				    .orient("left")
-				    .ticks(3)				    
-					/*.tickValues(d => {
-						return xscale.ticks().filter(y => {
+				    //.ticks(options.indicator.ticks || 5)
+					.tickValues((d,i) => {
+						/*return xscale.ticks().filter(y => {
 							return y%10===0
 						}).concat([xscale.domain()[1]])
-					})*/
+
+						let ticks=yscale.ticks(5);
+
+						if(ticks.length%2===0) {
+							return ticks.filter((d,i)=>{
+								return i%2===0;
+							})
+						} else if(ticks.length%3===0) {
+							return ticks.filter((d,i)=>{
+								return i%3===0;
+							})
+						}
+
+						return ticks.filter((d,i)=>{
+							return 1;
+							
+						})*/
+						if(options.indicator.ticks) {
+							return options.indicator.ticks;
+						}
+						let ticks=yscale.ticks().filter((d,i)=>{
+							return i%step===0;
+						});
+						return ticks;
+					})
 				    .tickFormat((d)=>{
 				    	return d3.format(",.0d")(d) + (options.indicator.unit||"");
 				    	//return d3.format("0d")(d)
@@ -274,6 +300,7 @@ export default function LineChart(data,options) {
 				.select("line")
 					.classed("visible",true)
 					.attr("x2",(d,i) => {
+						//console.log(options.indicator.ticks,options.indicator.extents)
 						//console.log(i,d)
 						return xscale.range()[1]+padding.left
 					})
@@ -327,6 +354,7 @@ export default function LineChart(data,options) {
 					    .attr("transform","translate("+margins.left+","+margins.top+")")
 					  	.selectAll("g");
 
+		//console.log(options.title)
 		resample(10);
 	}
 	function resample(samplesPerSegment) {

@@ -46,7 +46,7 @@ function updateData(json) {
         "United States":"US"
     }
 
-    let filter=["Current expenditure, % GDP","Doctors per 1,000 pop.","C-sections","Antibiotics","Nurses per 1,000 pop","Hospital discharges","ALOS, all causes","Current exp, per capita, AAGR"]
+    let filter=["Current expenditure, % GDP","Doctors per 1,000 pop.","C-sections","Antibiotics","Nurses per 1,000 pop","Hospital discharges","ALOS, all causes","Current exp, per capita, AAGR","Breast cancer"]
     //filter=["Current expenditure, % GDP"]
     //filter=["Current exp, per capita, AAGR"]
     for(let sheet in json.sheets) {

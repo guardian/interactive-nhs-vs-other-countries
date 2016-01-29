@@ -7,7 +7,7 @@ export function init(el, context, config, mediator) {
     el.innerHTML = mainHTML.replace(/%assetPath%/g, config.assetPath);
 
     loadData((data)=>{
-        console.log(data)
+        //console.log(data)
         let selected_indicators=d3.range(d3.keys(indicators).length);
         new SmallMultiples(data,{
             container:"#NHSComparison",

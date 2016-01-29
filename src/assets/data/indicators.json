@@ -1,36 +1,57 @@
 {
 	"Current expenditure, % GDP":{
 		"title":"Healthcare spending",
-		"subtitle":"As percentage of GDP"
+		"subtitle":"As percentage of GDP",
+		"extents":[0,20],
+		"ticks":[0,5,10,15,20]
 	},
 	"Current exp, per capita, AAGR":{
-		"title":"Growth rate of healthcare spending",
-		"subtitle":"Year on year",
+		"title":"Healthcare spending",
+		"subtitle":"Year on year growth rate",
 		"interpolate":"none",
-		"unit":"%"
+		"unit":"%",
+		"extents":[-10,30],
+		"ticks":[-10,0,10,20,30]
 	},
 	"Doctors per 1,000 pop.":{
 		"title":"Doctors",
-		"subtitle":"Per 1,000 population"
+		"subtitle":"Per 1,000 population",
+		"extents":[0,6],
+		"ticks":[0,2,4,6]
 	},
 	"C-sections":{
 		"title":"Caesareans",
-		"subtitle":"Per 1,000 live births"
+		"subtitle":"Per 1,000 live births",
+		"ticks":[0,100,200,300,400]
 	},
 	"Antibiotics":{
 		"title":"Antibiotics consumption",
-		"subtitle":"Defined daily dosage per 1,000 population"
+		"subtitle":"Daily dosage per 1,000 population",
+		"extents":[0,40],
+		"ticks":[0,10,20,30,40]
 	},
 	"Nurses per 1,000 pop":{
 		"title":"Nurses",
-		"subtitle":"Per 1,000 population"
+		"subtitle":"Per 1,000 population",
+		"extents":[0,16],
+		"ticks":[0,4,8,12,16]
 	},
 	"Hospital discharges":{
 		"title":"Hospital discharges",
-		"subtitle":"Per 100,000 population"
+		"subtitle":"Per 100,000 population",
+		"extents":[0,30000],
+		"ticks":[0,10000,20000,30000]
 	},
 	"ALOS, all causes":{
 		"title":"Hospital length of stay",
-		"subtitle":"Number of days"
+		"subtitle":"Number of days",
+		"extents":[0,40],
+		"ticks":[0,10,20,30,40]
+	},
+	"Breast cancer":{
+		"title":"Breast cancer",
+		"subtitle":"Five-year survival rate",
+		"extents":[60,90],
+		"ticks":[60,70,80,90]
 	}
 }

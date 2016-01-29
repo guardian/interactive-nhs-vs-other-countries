@@ -27,6 +27,7 @@ export default function SmallMultiples(data,options) {
 		linecharts.push(
 			new LineChart(d.data,{
 				//width:1/3,//1/data.length,
+				title:d.title,
 				container:this,
 				country:options.country,
 				indicator:options.indicators[d.title],
